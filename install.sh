@@ -63,9 +63,9 @@ systemctl enable pdns
 
 echo "Install powerdns-admin"
 sleep 2s
-yum -y install php74 php74-php-gd php74-php-mcrypt php74-php-opcache php74-php-pdo php74-php-mbstring php74-php-cli php74-php-fpm php74-php-mysqlnd php74-php-xml php74-php-odbc php74-php-pear gettext
-systemctl start php74-php-fpm
-systemctl enable php74-php-fpm
+yum -y install php72 php72-php-gd php72-php-mcrypt php72-php-opcache php72-php-pdo php72-php-mbstring php72-php-cli php72-php-fpm php72-php-mysqlnd php72-php-xml php72-php-odbc php72-php-pear gettext
+systemctl start php72-php-fpm
+systemctl enable php72-php-fpm
 echo "Install nginx"
 echo "Input your domain"
 read your_domain
