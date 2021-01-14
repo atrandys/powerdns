@@ -148,3 +148,7 @@ tar xvf poweradmin-2.1.7.tgz
 mv poweradmin-2.1.7/* ./
 nginx -t
 systemctl start nginx
+
+echo "mysqlpasswd: $mysqlpasswd"
+echo "powerdnsdb: $powerdnsdb"
+echo "apikey: $apikey"
