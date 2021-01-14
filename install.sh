@@ -2,6 +2,7 @@
 #Install powerdns & powerdns-admin
 
 echo "Install pdns & pdns-backend-mysql"
+sleep 2s
 yum install -y epel-release yum-plugin-priorities
 curl -o /etc/yum.repos.d/powerdns-auth-master.repo https://repo.powerdns.com/repo-files/centos-auth-master.repo
 wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
@@ -11,6 +12,7 @@ yum -y install tcl expect expect-devel socat
 yum install -y pdns pdns-backend-mysql
 
 echo "Install mysql"
+sleep 2s
 yum -y install mariadb mariadb-server
 systemctl start mariadb
 systemctl enable mariadb
@@ -29,12 +31,12 @@ expect "Remove anonymous users" {send "Y\r"}
 expect "Disallow root login remotely" {send "Y\r"}
 expect "database and access" {send "Y\r"}
 expect "Reload privilege tables" {send "Y\r"}
-spawn mysql -u root -p
-expect "Enter password" {send "$mysqlpasswd\r"}
-expect "MariaDB" {send "create database powerdns;\r"}
-expect "MariaDB" {send "use powerdns;\r"}
-expect "MariaDB" {send "source /usr/share/doc/$powerdnsdb/schema.mysql.sql;\r"}
-expect "MariaDB" {send "exit\r"}
+EOF
+
+mysql -uroot -p$mysqlpasswd <<-EOF
+create database powerdns;
+use powerdns;
+source /usr/share/doc/$powerdnsdb/schema.mysql.sql;
 EOF
 
 
@@ -60,6 +62,7 @@ systemctl enable pdns
 systemctl enable php74-php-fpm
 
 echo "Install powerdns-admin"
+sleep 2s
 yum -y install php74 php74-php-gd php74-php-mcrypt php74-php-opcache php74-php-pdo php74-php-mbstring php74-php-cli php74-php-fpm php74-php-mysqlnd php74-php-xml php74-php-odbc php74-php-pear gettext
 
 
