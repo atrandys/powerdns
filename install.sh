@@ -150,5 +150,5 @@ nginx -t
 systemctl start nginx
 
 echo "mysqlpasswd: $mysqlpasswd"
-echo "powerdnsdb: $powerdnsdb"
+echo "powerdnsdb: powerdns"
 echo "apikey: $apikey"
