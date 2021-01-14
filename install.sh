@@ -57,15 +57,15 @@ EOF
 chown -R pdns:pdns /etc/pdns/pdns.conf
 
 systemctl restart pdns
-systemctl start php74-php-fpm
+
 systemctl enable pdns
-systemctl enable php74-php-fpm
+
 
 echo "Install powerdns-admin"
 sleep 2s
 yum -y install php74 php74-php-gd php74-php-mcrypt php74-php-opcache php74-php-pdo php74-php-mbstring php74-php-cli php74-php-fpm php74-php-mysqlnd php74-php-xml php74-php-odbc php74-php-pear gettext
-
-
+systemctl start php74-php-fpm
+systemctl enable php74-php-fpm
 echo "Install nginx"
 echo "Input your domain"
 read your_domain
