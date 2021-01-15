@@ -1,5 +1,5 @@
 #!/bin/bash
-#Install powerdns & powerdns-admin
+#Install powerdns & poweradmin
 
 echo "Install pdns & pdns-backend-mysql"
 sleep 2s
