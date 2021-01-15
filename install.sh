@@ -150,7 +150,7 @@ systemctl restart pdns
 systemctl enable pdns
 
 
-echo "Install powerdns-admin"
+echo "Install poweradmin"
 sleep 2s
 yum -y install php72 php72-php-gd php72-php-mcrypt php72-php-opcache php72-php-pdo php72-php-mbstring php72-php-cli php72-php-fpm php72-php-mysqlnd php72-php-xml php72-php-odbc php72-php-pear gettext
 systemctl start php72-php-fpm
