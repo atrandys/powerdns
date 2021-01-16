@@ -8,8 +8,15 @@ curl -o /etc/yum.repos.d/powerdns-auth-master.repo https://repo.powerdns.com/rep
 wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 rpm -Uvh remi-release-7.rpm
 yum -y install tcl expect expect-devel socat
+yum install -y pdns pdns-backend-mysql pdns-backend-geoip
 
-yum install -y pdns pdns-backend-mysql
+echo "Install GeoIP"
+wget https://github.com/maxmind/geoipupdate/releases/download/v4.6.0/geoipupdate_4.6.0_linux_amd64.tar.gz
+tar xvf geoipupdate_4.6.0_linux_amd64.tar.gz
+mv geoipupdate_4.6.0_linux_amd64/geoipupdate /usr/local/bin/
+cp geoipupdate_4.6.0_linux_amd64/GeoIP.conf /usr/local/etc/GeoIP.conf
+mkdir /usr/local/share/GeoIP
+echo "0 0 * * 0 /usr/local/bin/geoipupdate" >> /etc/crontab
 
 echo "Install mysql"
 sleep 2s
@@ -17,7 +24,7 @@ yum -y install mariadb mariadb-server
 systemctl start mariadb
 systemctl enable mariadb
 
-mysqlpasswd=$(cat /dev/urandom | head -1 | md5sum | head -c 8)
+mysqlpasswd=$(cat /dev/urandom | head -1 | md5sum | head -c 8) 
 powerdnsdb=$(ls /usr/share/doc/ | grep pdns-backend-mysql)
 apikey=$(cat /dev/urandom | head -1 | md5sum | head -c 16)
 
@@ -131,7 +138,10 @@ EOF
 
 
 cat >> /etc/pdns/pdns.conf <<-EOF
-launch=gmysql
+enable-lua-records=yes
+
+launch=gmysql,geoip
+geoip-database-files=/usr/local/share/GeoIP/GeoLite2-City.mmdb
 gmysql-host=localhost
 gmysql-user=root
 gmysql-password=$mysqlpasswd
