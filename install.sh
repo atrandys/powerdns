@@ -149,6 +149,7 @@ gmysql-dbname=powerdns
 
 api=yes
 api-key=$apikey
+webserver=yes
 webserver-address=0.0.0.0
 webserver-port=8888
 webserver-allow-from=0.0.0.0/0,::/0
